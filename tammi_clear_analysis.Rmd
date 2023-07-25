@@ -1,0 +1,249 @@
+---
+title: "TAMMI Analysis CLEAR content words"
+author: "Crossley"
+date: "`r Sys.Date()`"
+output: 
+  html_document: 
+    toc: yes
+    number_sections: yes
+---
+
+This analysis was conducted using the CLEAR corpus available at https://github.com/scrosseye/CLEAR-Corpus.
+
+The corpus was ran through the The Tool for Automatic Measurement of Morphological Information (TAMMI) available at linguisticanalysistools.org
+
+  - Only the indices normed by content words were used.
+
+Clean up environment and call in tidyverse
+```{r}
+
+rm(list=ls(all=TRUE))
+library(tidyverse)
+
+```
+
+# Initial correlations 
+
+These are for the entire dataset regardless of Multi-collinerity
+
+Also, includes word count to assess correlations with text length 
+
+```{r}
+
+all_variables <- read_csv("tammi_clear_results_cw.csv")
+str(all_variables)
+
+all_var_corr <- all_variables[, c(2, 4:45)]
+str(all_var_corr)
+
+all_var_corr_matrix <- cor(all_var_corr)
+
+write.csv(all_var_corr_matrix, "all_variables_corr_matrix_cw.csv")
+
+```
+
+
+
+# Wrangle data
+
+Call in non-multicollinear variables and keep only those variables.
+
+- These are only variables that are not multi-collinear with one another.
+
+```{r}
+
+list.files()
+non_mc <- read_csv("multicollear_ease_reading_cw.csv") #read non-collinear variables in
+str(non_mc)
+
+variables <- non_mc[, 1] #grab up variable names
+str(variables)
+print(variables) #still a tibble
+
+#pull variables out of tibble into vector
+variables_2 <- variables %>% 
+  pull(...1)
+
+variables_2
+
+#call in final data frame
+tammi_results_2 <- read_csv("tammi_clear_results_cw.csv") %>% 
+  dplyr::select(Filename, BT_easiness, variables_2)
+
+```
+
+# Statistical Analyses
+
+## Correlations
+
+```{r}
+
+str(tammi_results_2)
+
+#need better names for the correlation plots and matrices
+
+tammi_results_3 <- tammi_results_2 %>% 
+  rename(Reading_ease = BT_easiness, 
+         root_freq_log = root_log_freq,
+         inflections = Inflected_Tokens,
+         root_freq = root_freq,
+         MCI_inflect = inflectional_MCI_10,
+         suffix_len = suffix_len_per_cw,
+         num_morph = num_morphemes_per_cw,
+         prefix_freq = prefix_freq_per_cw,
+         prefix_freq_fam = perc_more_freq_words_morpho_family_prefix_per_cw,
+         derive_ttr = derivational_TTR_10,
+         suffix_freq_fam = perc_more_freq_words_morpho_family_suffix_per_cw, 
+         MCI_derive = derivational_MCI_10)
+         
+
+str(tammi_results_3)
+
+#grab up data needed
+
+data_analysis <- tammi_results_3[, c(2:13)]
+str(data_analysis)
+
+#simple correlation matrix
+
+corr_matrix <- cor(data_analysis)
+corr_matrix
+
+#save to csv file
+
+write.csv(corr_matrix, "corr_matrix_tammi_clear_cw_final_variables.csv")
+
+#prettier plot using corrplot
+
+library(corrplot)
+
+pdf("corr_plot.pdf")
+
+corr_plot <- corrplot(corr_matrix, 
+         type="lower", #put color strength on bottom
+         tl.pos = "ld", #Character or logical, position of text labels, 'ld'(default if type=='lower') means left and diagonal,
+         tl.cex = 1, #Numeric, for the size of text label (variable names).
+         method="color", 
+         addCoef.col="black", 
+         diag=FALSE,
+         tl.col="black", #The color of text label.
+         tl.srt=45, #Numeric, for text label string rotation in degrees, see text
+         is.corr = FALSE,
+         #order = "hclust", #order results by strength
+         #col=gray.colors(100), #in case you want it in gray...
+         number.digits = 2) #number of digits after decimal
+
+#print(corr_plot)
+dev.off()
+
+
+library(PerformanceAnalytics) #for chart.Correlation
+
+pdf("corr_chart.pdf")
+chart.Correlation(data_analysis, histogram = TRUE, method = "pearson")
+dev.off()
+
+```
+
+## Machine learning model
+
+```{r}
+
+library(caret)
+str(data_analysis)
+
+set.seed(1234)
+
+# Set up repeated k-fold cross-validation
+train.control <- trainControl(method = "cv", number = 10)
+#method = cross validation, number = ten times (10 fold cross-validation)
+
+#the 10 fold CV stepwise model used
+lm_cv10_step <- train(Reading_ease ~ .,data = data_analysis,
+                           #method = "leapForward", #stepwise selection
+                           #method = "leapBackward", #stepwise selection
+                           method = "leapSeq", #stepwise selection 
+                           tuneGrid = data.frame(nvmax = 1:11), #using 1-18 predictor that we have
+                           trControl = train.control)
+
+#the model
+summary(lm_cv10_step)
+lm_cv10_step$results 
+lm_cv10_step
+
+#best tuned model
+lm_cv10_step$bestTune  #says include 9...
+
+#which variables were strong predictors
+summary(lm_cv10_step$finalModel)
+
+#co-efficients for model using all 3 variables
+coef(lm_cv10_step$finalModel, 9)
+
+#no suppression effects
+
+```
+
+
+**Final model**
+
+```{r}
+
+#many non-significant variables here...
+
+final_lm <- lm(Reading_ease ~ root_freq_log + inflections + MCI_inflect + num_morph + prefix_freq + prefix_freq_fam + derive_ttr + suffix_freq_fam + MCI_derive, data = data_analysis)
+summary(final_lm)
+
+
+```
+
+Check variable importance metrics
+
+```{r}
+library(relaimpo)#variable importance
+
+metrics_w_types_all <- calc.relimp(final_lm)
+metrics_w_types_all
+
+calc.relimp(final_lm,type=c("lmg","last","first","pratt"),rela=TRUE)
+#this reports percentage of importance by variable that adds up to 100
+
+```
+
+Check for multicollinearity using VIF values
+
+```{r}
+
+car::vif(final_lm) #VIF values for the regression to ensure no problems with multi-collinearity
+
+```
+
+Check for normal distributions of residuals
+
+```{r}
+
+plot(final_lm, which = 1) #residual plot
+
+```
+
+
+## Interpret final model
+
+**Texts that are easier to read include**
+
+- More frequent root words
+- Words with more inflections (perhaps narrative?) 
+- More diversity in word inflections (MCI)
+
+**Texts that are more difficult to read include**
+
+- More morphemes in general
+- Words with more frequent prefixes
+- Prefixes that are less frequent in a family
+- Words with more unique derivational morphemes 
+- Suffixes that are less frequent in a family
+- More diversity of derivational morphemes
+
+
+
+
