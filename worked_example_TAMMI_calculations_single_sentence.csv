@@ -1,0 +1,64 @@
+Below are TAMMI 2.0 results for the following sentence:,The comically funny writer loved interactive billboards.,,,,,,,"To calculate the variables, please see the Morpholex output tab, which was used to calculate most of the raw counts below. ",,,,
+"The sentences contains 7 words, of which 6 are content words. ",,,,,,,,"The raw counts are divided by the Content words/prefix/suffix/affix count, depending on the variable.",,,,
+"The sentence comprises the follow words, morphemes, and MorphoLex segmentation",,,,,,,,,,,,
+,,,,,,,,Original name,Corrected Variable Name,Raw count,Content words/prefix/suffix/affix count,Calculation
+,,,,,,,,Inflected_Tokens,Inflected_Tokens_by_cw,2,6,0.33
+Content word,Num inflections,num derivational prefixes,num roots,num derivational suffixes,MorphoLex Segmentation,,,Derivational_Tokens,Tokens_by_Derivational_by_cw,4,6,0.67
+comically,0,0,1,2,{(comic)}>al>>ly>,,,Tokens_w_Prefixes,Tokens_by_Prefixes_by_cw,1,6,0.17
+funny,0,0,1,1,{(fun)}>y>,,,Tokens_w_Affixes,Tokens_by_Affixes_by_cw,4,6,0.67
+writer,0,0,1,1,{(write)}>er>,,,Compounds,Compounds_by_cw,1,6,0.17
+loved,1,0,1,0,{(love)},,,number_prefixes_per_cw,number_prefixes_by_cw,1,6,0.17
+interactive,0,1,1,1,<inter<{(act)}>ive>,,,number_prefixes_per_word_w_pref,number_prefixes_by_word_by_pref,1,1,1
+billboards,1,0,2,0,{(bill)}{(board)},,,number_roots_per_cw,number_roots_by_cw,1,6,0.17
+,,,,,,,,number_suffixes_per_cw,number_suffixes_by_cw,5,6,0.83
+,,,,,,,,number_suffixes_per_word_w_suff,number_suffixes_by_word_by_suff,5,4,1.25
+,,,,,,,,number_affixes_per_cw,number_affixes_by_cw,6,6,1
+,,,,,,,,number_affixes_per_word_w_aff,number_affixes_by_word_by_aff,6,4,1.5
+,,,,,,,,num_morphemes_per_lemma,num_morphemes_by_lemma,13,6,2.166666667
+,,,,,,,,num_morphemes_per_cw,num_morphemes_by_cw,13,6,2.166666667
+,,,,,,,,prefix_family_size_per_cw,prefix_family_size_by_cw,114,6,19
+,,,,,,,,prefix_family_size_per_word_w_pref,prefix_family_size_by_word_by_pref,114,1,114
+,,,,,,,,root_family_size_per_cw,root_family_size_by_cw,181,6,30.16666667
+,,,,,,,,suffix_family_size_per_cw,suffix_family_size_by_cw,9669,6,1611.5
+,,,,,,,,suffix_family_size_per_word_w_suff,suffix_family_size_by_word_by_suff,9669,4,2417.25
+,,,,,,,,affix_family_size_per_cw,affix_family_size_by_cw,9783,6,1630.5
+,,,,,,,,affix_family_size_per_word_w_aff,affix_family_size_by_word_by_aff,9783,4,2445.75
+,,,,,,,,%_more_freq_words_morpho-family_prefix_per_cw,%_more_freq_words_morpho-family_prefix_by_cw,2.654867257,6,0.442477876
+,,,,,,,,%_more_freq_words_morpho-family_prefix_per_word_w_pref,%_more_freq_words_morpho-family_prefix_by_word_by_pref,2.654867257,1,2.654867257
+,,,,,,,,prefix_freq_per_cw,prefix_freq_by_cw,343106,6,57184.33333
+,,,,,,,,prefix_freq_per_word_w_pref,prefix_freq_by_word_by_pref,343106,1,343106
+,,,,,,,,prefix_log_freq_per_cw,prefix_log_freq_by_cw,5.535428313,6,0.922571386
+,,,,,,,,prefix_log_freq_per_word_w_pref,prefix_log_freq_by_word_by_pref,5.535428313,1,5.535428313
+,,,,,,,,%_more_freq_words_morpho-family_root,%_more_freq_words_morpho-family_root,160.6905194,6,26.78175324
+,,,,,,,,root_freq,root_freq,2361973,6,393662.1667
+,,,,,,,,root_log_freq,root_log_freq,37.3029199,6,6.217153317
+,,,,,,,,%_more_freq_words_morpho-family_suffix_per_cw,%_more_freq_words_morpho-family_suffix_by_cw,101.45799,6,16.909665
+,,,,,,,,%_more_freq_words_morpho-family_suffix_per_word_w_suff,%_more_freq_words_morpho-family_suffix_by_word_by_suff,101.45799,4,25.3644975
+,,,,,,,,suffix_freq_per_cw,suffix_freq_by_cw,18039436,6,3006572.667
+,,,,,,,,suffix_freq_per_word_w_suff,suffix_freq_by_word_by_suff,18039436,4,4509859
+,,,,,,,,suffix_log_freq_per_cw,suffix_log_freq_by_cw,32.5223935,6,5.420398917
+,,,,,,,,suffix_log_freq_per_word_w_suff,suffix_log_freq_by_word_by_suff,32.5223935,4,8.130598375
+,,,,,,,,%_more_freq_words_morpho-family_affix_per_cw,%_more_freq_words_morpho-family_affix_by_cw,104.1128573,6,17.35214288
+,,,,,,,,%_more_freq_words_morpho-family_affix_per_word_w_aff,%_more_freq_words_morpho-family_affix_by_word_by_aff,104.1128573,4,26.02821431
+,,,,,,,,affix_freq_per_cw,affix_freq_by_cw,18382542,6,3063757
+,,,,,,,,affix_freq_per_word_w_aff,affix_freq_by_word_by_aff,18382542,4,4595635.5
+,,,,,,,,affix_log_freq_per_cw,affix_log_freq_by_cw,38.05782181,6,6.342970302
+,,,,,,,,affix_log_freq_per_word_w_aff,affix_log_freq_by_word_by_aff,38.05782181,4,9.514455453
+,,,,,,,,prefix_in_hapax_per_cw,prefix_in_hapax_by_cw,8.74E-06,6,1.46E-06
+,,,,,,,,prefix_in_hapax_per_word_w_pref,prefix_in_hapax_by_word_by_pref,8.74E-06,1,0.00000874
+,,,,,,,,hapax_in_prefix_per_cw,hapax_in_prefix_by_cw,0.000463464,6,0.000077244
+,,,,,,,,hapax_in_prefix_per_word_w_pref,hapax_in_prefix_by_word_by_pref,0.000463464,1,0.000463464
+,,,,,,,,suffix_in_hapax_per_cw,suffix_in_hapax_by_cw,1.57E-04,6,2.62E-05
+,,,,,,,,suffix_in_hapax_per_word_w_suff,suffix_in_hapax_by_word_by_suff,1.57E-04,4,0.00003925
+,,,,,,,,hapax_in_suffix_per_cw,hapax_in_suffix_by_cw,0.091,6,0.015166667
+,,,,,,,,hapax_in_suffix_per_word_w_suff,hapax_in_suffix_by_word_by_suff,0.091,4,0.02275
+,,,,,,,,affix_in_hapax_per_cw,affix_in_hapax_by_cw,1.66E-04,6,2.76E-05
+,,,,,,,,affix_in_hapax_per_word_w_aff,affix_in_hapax_by_word_by_aff,1.66E-04,4,4.14E-05
+,,,,,,,,hapax_in_affix_per_cw,hapax_in_affix_by_cw,9.12E-02,6,1.52E-02
+,,,,,,,,hapax_in_affix_per_word_w_aff,hapax_in_affix_by_word_by_aff,9.12E-02,4,2.28E-02
+,,,,,,,,prefix_len_per_cw,prefix_len_by_cw,5,6,8.33E-01
+,,,,,,,,prefix_len_per_word_w_pref,prefix_len_by_word_by_pref,5,1,5.00E+00
+,,,,,,,,suffix_len_per_cw,suffix_len_by_cw,10,6,1.67E+00
+,,,,,,,,suffix_len_per_word_w_suff,suffix_len_by_word_by_suff,10,4,2.50E+00
+,,,,,,,,affix_len_per_cw,affix_len_by_cw,15,6,2.50E+00
+,,,,,,,,affix_len_per_word_w_aff,affix_len_by_word_by_aff,15,4,3.75E+00
